@@ -59,8 +59,8 @@
 
                         <HBox alignment="CENTER" spacing="10" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="3">
                             <Button fx:id="saveTeacherButton" onMouseClicked="#addEnsen" text="ENREGISTRER" />
-                            <Button fx:id="updateTeacherButton" text="MODIFIER" />
-                            <Button fx:id="deleteTeacherButton" text="SUPPRIMER" />
+                            <Button fx:id="updateTeacherButton" onMouseClicked="#updateEnsen" text="MODIFIER" />
+                            <Button fx:id="deleteTeacherButton" onMouseClicked="#deleteEnsen" text="SUPPRIMER" />
                         </HBox>
                         <columnConstraints>
                             <ColumnConstraints />

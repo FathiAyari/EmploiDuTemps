@@ -64,7 +64,7 @@ public class TableViewController implements Initializable {
     ResultSet resultSet = null;
 
     ObservableList<Enseignant> enseignants = FXCollections.observableArrayList();
-    private boolean first;
+    private boolean check;
 
     /**
      * Initializes the controller class.
@@ -219,5 +219,38 @@ teacherContactField.setText("");
                 Logger.getLogger(TableViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    public void updateEnsen(MouseEvent mouseEvent) {
+    }
+
+    public void deleteEnsen(MouseEvent mouseEvent) {
+        if(teacherIdField.getText().isEmpty()) {
+            alertText.setText("matricule est obligatoire");
+        }else{
+            try {
+
+
+
+                String query = "DELETE  FROM `tb_enseignant` WHERE `matricule` = ? ";
+                connection = DbConnect.getConnect();
+
+
+                preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, teacherIdField.getText());
+
+                check= preparedStatement.execute();
+                System.out.println(check);
+                clearFields();
+
+                refreshTable();
+
+
+
+            } catch (SQLException ex) {
+                Logger.getLogger(TableViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
 }
