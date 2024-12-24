@@ -154,15 +154,14 @@ teacherContactField.setText("");
    @FXML
     void addEnsen() throws IOException {
         String alertMessage = "";
-        if (nameCol.getText().isEmpty()) {
+        if (teacherNameField.getText().isEmpty()) {
             alertMessage = "Nom est obligatoire";
-        } else if (contactCol.getText().isEmpty()) {
+        } else if (teacherContactField.getText().isEmpty()) {
             alertMessage = "Contact est obligatoire";
-        } else if (matriculeCol.getText().isEmpty()) {
+        } else if (teacherIdField.getText().isEmpty()) {
             alertMessage = "Matricule est obligatoire";
 
         }
-
         if (!alertMessage.isEmpty()) {
             alertMessage += " X ";
             alertText.setText(alertMessage);
@@ -198,6 +197,7 @@ teacherContactField.setText("");
     }
 
     public void removeAlert(MouseEvent mouseEvent) {
+        alertText.setText("");
     }
 
 
