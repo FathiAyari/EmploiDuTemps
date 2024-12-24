@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<BorderPane prefHeight="733.0" prefWidth="703.0" style="-fx-background-color: #f0cac9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <center>
+        <VBox alignment="TOP_LEFT" spacing="20">
+            <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Formulaire d'enregistrement des enseignants">
+                <padding>
+                    <Insets bottom="5.0" left="8.0" right="8.0" top="5.0" />
+                </padding>
+
+            </Label>
+            <HBox spacing="10">
+
+                <GridPane fx:id="formGrid" alignment="CENTER" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                    <Label text="Matricule:" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <padding>
+                            <Insets bottom="10.0" left="8.0" right="8.0" top="5.0" />
+                        </padding>
+                    </Label>
+
+                    <TextField fx:id="teacherIdField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                    <Button fx:id="searchTeacherButton" text="CHERCHER" GridPane.columnIndex="2" GridPane.rowIndex="0">
+
+
+                    </Button>
+                    <Label text="Nom:" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <padding>
+                            <Insets bottom="10.0" left="8.0" right="8.0" top="5.0" />
+                        </padding>
+                    </Label>
+                    <TextField fx:id="teacherNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                    <Label text="Contact:" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                    <padding>
+                        <Insets bottom="10.0" left="8.0" right="8.0" top="5.0" />
+                    </padding>
+                    </Label>
+                    <TextField fx:id="teacherContactField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                    <HBox alignment="CENTER" spacing="10" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="3">
+                        <Button fx:id="saveTeacherButton" text="ENREGISTRER" />
+                        <Button fx:id="updateTeacherButton" text="MODIFIER" />
+                        <Button fx:id="deleteTeacherButton" text="SUPPRIMER" />
+                    </HBox>
+               <columnConstraints>
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
+                </GridPane>
+
+                <TableView fx:id="teacherTable" prefHeight="292.0" prefWidth="423.0" HBox.hgrow="ALWAYS">
+                    <columns>
+                        <TableColumn maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Matricule" />
+                        <TableColumn maxWidth="170.0" minWidth="170.0" prefWidth="170.0" text="Nom" />
+                        <TableColumn maxWidth="180.0" prefWidth="180.0" text="Contact" />
+                    </columns>
+                </TableView>
+            </HBox>
+
+
+
+
+
+            <VBox alignment="TOP_LEFT" spacing="10">
+                <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Formulaire d'enregistrement des séances de cours">
+                    <padding>
+                        <Insets bottom="5.0" left="8.0" right="8.0" top="5.0" />
+                    </padding>
+
+                </Label>
+                <HBox>
+                    <GridPane alignment="CENTER" hgap="10" maxWidth="Infinity" vgap="10" HBox.hgrow="ALWAYS">
+                        <Label text="Classe:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <ComboBox fx:id="classComboBox" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="1er" />
+                                    <String fx:value="2eme" />
+                                    <String fx:value="3eme" />
+                                    <String fx:value="4eme" />
+                                    <String fx:value="5eme" />
+                                    <String fx:value="6eme" />
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+
+
+                        <Label text="Matière:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="subjectComboBox" GridPane.columnIndex="1" GridPane.rowIndex="1" >
+
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="Arabe" />
+                                    <String fx:value="Maths" />
+                                    <String fx:value="SVT" />
+                                    <String fx:value="Techno" />
+                                    <String fx:value="Edu islamique" />
+                                    <String fx:value="Musique" />
+                                    <String fx:value="Arts" />
+                                    <String fx:value="Français" />
+                                    <String fx:value="Anglais" />
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+
+                        <Label text="Jour:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="dayComboBox" GridPane.columnIndex="1" GridPane.rowIndex="2" >
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="LUNDI" />
+                                    <String fx:value="MARDI" />
+                                    <String fx:value="MERCREDI" />
+                                    <String fx:value="JEUDI" />
+                                    <String fx:value="VENDREDI" />
+                                    <String fx:value="SAMEDI" />
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+
+                        <Label text="Heure:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                        <ComboBox fx:id="hourField" GridPane.columnIndex="1" GridPane.rowIndex="3" >
+
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="1er H" />
+                                    <String fx:value="1er et 2ème H" />
+                                    <String fx:value="2ème H" />
+                                    <String fx:value="2ème et 3ème H" />
+                                    <String fx:value="3ème H" />
+                                    <String fx:value="3ème et 4ème H" />
+                                    <String fx:value="4ème H" />
+                                    <String fx:value="4ème et 5ème H" />
+                                    <String fx:value="5ème H" />
+                                    <String fx:value="5ème et 6ème H" />
+                                    <String fx:value="6ème H" />
+                                    <String fx:value="6ème et 7ème H" />
+                                    <String fx:value="7ème H" />
+                                    <String fx:value="7ème et 8ème H" />
+                                    <String fx:value="8ème H" />
+
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+                        <Label text="Matricule enseignant:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                        <TextField fx:id="teacherIdSessionField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                        <HBox alignment="CENTER" spacing="10" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                            <Button fx:id="saveSessionButton" text="ENREGISTRER" />
+                            <Button fx:id="queriesButton" text="REQUETES" />
+                        </HBox>
+                        <columnConstraints>
+                            <ColumnConstraints />
+                            <ColumnConstraints />
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints />
+                            <RowConstraints />
+                            <RowConstraints />
+                            <RowConstraints />
+                            <RowConstraints />
+                            <RowConstraints />
+                        </rowConstraints>
+                    </GridPane>
+
+                    <TableView fx:id="sessionTable" prefHeight="275.0" prefWidth="416.0" HBox.hgrow="ALWAYS">
+                        <columns>
+                            <TableColumn text="Classe" />
+                            <TableColumn text="Matière" />
+                            <TableColumn text="Jour" />
+                            <TableColumn maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Heure" />
+                            <TableColumn prefWidth="124.6666259765625" text="Enseignant" />
+                        </columns>
+                    </TableView>
+                </HBox>
+            </VBox>
+         <opaqueInsets>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </opaqueInsets>
+        </VBox>
+    </center>
+</BorderPane>
