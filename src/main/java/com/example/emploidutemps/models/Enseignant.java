@@ -35,7 +35,13 @@ public class Enseignant {
         return matricule;
     }
 
-    public void setMatricule(String matricule) {
-        this.matricule = matricule;
+    // Override toString
+    @Override
+    public String toString() {
+        return "Enseignant{" +
+                "nom='" + nom + '\'' +
+                ", contact='" + contact + '\'' +
+                ", matricule='" + matricule + '\'' +
+                '}';
     }
 }

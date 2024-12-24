@@ -39,7 +39,7 @@
                         </Label>
 
                         <TextField fx:id="teacherIdField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                        <Button fx:id="searchTeacherButton" text="CHERCHER" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                        <Button fx:id="searchTeacherButton" onMouseClicked="#searchEnsen" text="CHERCHER" GridPane.columnIndex="2" GridPane.rowIndex="0">
 
 
                         </Button>

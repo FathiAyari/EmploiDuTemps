@@ -120,23 +120,6 @@ public class TableViewController implements Initializable {
         matriculeCol.setCellValueFactory(new PropertyValueFactory<>("matricule"));
         contactCol.setCellValueFactory(new PropertyValueFactory<>("contact"));
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     @FXML
@@ -201,4 +184,40 @@ teacherContactField.setText("");
     }
 
 
+    public void searchEnsen(MouseEvent mouseEvent) {
+        if(teacherIdField.getText().isEmpty()) {
+           alertText.setText("matricule est obligatoire");
+        }
+        else {
+            try {
+
+
+
+                String query = "SELECT * FROM `tb_enseignant` WHERE `matricule` = ?";
+                connection = DbConnect.getConnect();
+
+
+                preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, teacherIdField.getText());
+
+                resultSet = preparedStatement.executeQuery();
+
+
+
+                if (resultSet.next()) {
+
+
+                    teacherNameField.setText(resultSet.getString("nom"));
+                    teacherContactField.setText(resultSet.getString("contact"));
+
+                }else{
+                 alertText.setText("Ensemble vide ):- ");
+                }
+
+
+            } catch (SQLException ex) {
+                Logger.getLogger(TableViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }
