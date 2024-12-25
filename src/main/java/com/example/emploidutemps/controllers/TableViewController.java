@@ -211,7 +211,7 @@ teacherContactField.setText("");
 
                 }else{
 
-                 alertText.setText("Ensemble tmatrouvé => 0");
+                 alertText.setText("Ensemble trouvé => 0");
                 }
 
 
@@ -264,31 +264,46 @@ teacherContactField.setText("");
     }
 
     public void deleteEnsen(MouseEvent mouseEvent) {
-
-        if (foundRecord){
+        if (teacherIdField.getText().isEmpty()) {
+            alertText.setText("Matricule est obligatoire X");
+        }
+        else{
             try {
-
-
-
-                String query = "DELETE  FROM `tb_enseignant` WHERE `matricule` = ? ";
+                 query = "SELECT * FROM `tb_enseignant` WHERE `matricule`=?";
                 connection = DbConnect.getConnect();
 
 
                 preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setString(1, teacherIdField.getText());
 
-                check= preparedStatement.execute();
-                clearFields();
+                resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    query = "DELETE  FROM `tb_enseignant` WHERE `matricule` = ? ";
+                    connection = DbConnect.getConnect();
 
-                refreshTable();
+
+                    preparedStatement = connection.prepareStatement(query);
+                    preparedStatement.setString(1, teacherIdField.getText());
+
+                    check= preparedStatement.execute();
+                    clearFields();
+
+                    refreshTable();
+                    alertText.setText("Enseignant supprimé X ");
+
+                }else{
+
+                    alertText.setText("Enseignant introuvable X");
+                }
+
+
+
 
 
 
             } catch (SQLException ex) {
                 Logger.getLogger(TableViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else {
-            alertText.setText("Tu peux pas changer un element introuvable X");
         }
 
 
