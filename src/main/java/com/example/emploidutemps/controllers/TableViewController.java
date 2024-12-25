@@ -18,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
 import java.io.IOException;
+import java.net.IDN;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -58,6 +59,7 @@ public class TableViewController implements Initializable {
     private TableColumn<Enseignant, String> contactCol;
 
     String query = null;
+    String selectedMatricule = "";
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     PreparedStatement preparedStatementMeet = null;
@@ -65,6 +67,7 @@ public class TableViewController implements Initializable {
 
     ObservableList<Enseignant> enseignants = FXCollections.observableArrayList();
     private boolean check;
+    private boolean foundRecord;
 
     /**
      * Initializes the controller class.
@@ -159,7 +162,7 @@ teacherContactField.setText("");
 
                 preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setString(1, teacherIdField.getText());
-                preparedStatement.setString(2, teacherNameField.getText());
+                preparedStatement.setString(2, teacherNameField.getText().toUpperCase());
                 preparedStatement.setString(3, teacherContactField.getText());
                 preparedStatement.execute();
 
@@ -168,16 +171,13 @@ teacherContactField.setText("");
                 alertText.setText("");
                 refreshTable();
             } catch (SQLException ex) {
-                System.out.println("error here" + ex);
-                Logger.getLogger(TableViewController.class.getName()).log(Level.SEVERE, null, ex);
+                alertText.setText(ex.getMessage());
+                refreshTable();
             }
         }
     }
 
 
-    public LocalDate convertToLocalDateViaMilisecond(Date dateToConvert) {
-        return null;
-    }
 
     public void removeAlert(MouseEvent mouseEvent) {
         alertText.setText("");
@@ -185,20 +185,18 @@ teacherContactField.setText("");
 
 
     public void searchEnsen(MouseEvent mouseEvent) {
-        if(teacherIdField.getText().isEmpty()) {
-           alertText.setText("matricule est obligatoire");
+
+        if (teacherNameField.getText().isEmpty()) {
+            alertText.setText("Contact est obligatoire X");
         }
         else {
             try {
-
-
-
-                String query = "SELECT * FROM `tb_enseignant` WHERE `matricule` = ?";
+                String query = "SELECT * FROM `tb_enseignant` WHERE `nom`=?";
                 connection = DbConnect.getConnect();
 
 
                 preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setString(1, teacherIdField.getText());
+                preparedStatement.setString(1, teacherNameField.getText());
 
                 resultSet = preparedStatement.executeQuery();
 
@@ -206,12 +204,14 @@ teacherContactField.setText("");
 
                 if (resultSet.next()) {
 
-
-                    teacherNameField.setText(resultSet.getString("nom"));
+                    foundRecord=true;
+                    alertText.setText("Ensemble trouvé => 1 ");
+                    teacherIdField.setText(resultSet.getString("matricule"));
                     teacherContactField.setText(resultSet.getString("contact"));
 
                 }else{
-                 alertText.setText("Ensemble vide ):- ");
+
+                 alertText.setText("Ensemble tmatrouvé => 0");
                 }
 
 
@@ -222,12 +222,50 @@ teacherContactField.setText("");
     }
 
     public void updateEnsen(MouseEvent mouseEvent) {
+
+        String alertMessage = "";
+        selectedMatricule=teacherIdField.getText();
+        if (teacherNameField.getText().isEmpty()) {
+            alertMessage = "Nom est obligatoire";
+        } else if (teacherContactField.getText().isEmpty()) {
+            alertMessage = "Contact est obligatoire";
+        } else if (teacherIdField.getText().isEmpty()) {
+            alertMessage = "Matricule est obligatoire";
+        }
+
+        if (!alertMessage.isEmpty()) {
+            alertMessage += " X ";
+            alertText.setText(alertMessage);
+
+
+        }else {
+            try {
+                connection = DbConnect.getConnect();
+                query = "UPDATE  `tb_enseignant` SET  `nom`=?, `contact`=? WHERE `matricule` = ?  ";
+
+                preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, teacherNameField.getText());
+                preparedStatement.setString(2, teacherContactField.getText());
+                preparedStatement.setString(3, teacherIdField.getText());
+                preparedStatement.execute();
+
+                clearFields();
+
+                alertText.setText("Enseignant changé X");
+                refreshTable();
+            } catch (SQLException ex) {
+                alertText.setText(ex.getMessage());
+                refreshTable();
+            }
+        }
+
+
+
     }
 
     public void deleteEnsen(MouseEvent mouseEvent) {
-        if(teacherIdField.getText().isEmpty()) {
-            alertText.setText("matricule est obligatoire");
-        }else{
+
+        if (foundRecord){
             try {
 
 
@@ -240,7 +278,6 @@ teacherContactField.setText("");
                 preparedStatement.setString(1, teacherIdField.getText());
 
                 check= preparedStatement.execute();
-                System.out.println(check);
                 clearFields();
 
                 refreshTable();
@@ -250,7 +287,10 @@ teacherContactField.setText("");
             } catch (SQLException ex) {
                 Logger.getLogger(TableViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }else {
+            alertText.setText("Tu peux pas changer un element introuvable X");
         }
+
 
     }
 }
