@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -14,19 +16,17 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
 <BorderPane prefHeight="733.0" prefWidth="703.0" style="-fx-background-color: #f0cac9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.emploidutemps.controllers.TableViewController">
     <center>
-        <VBox alignment="TOP_LEFT" spacing="20" >
+        <VBox alignment="TOP_LEFT" spacing="20">
             <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Formulaire d'enregistrement des enseignants">
                 <padding>
                     <Insets bottom="5.0" left="8.0" right="8.0" top="5.0" />
                 </padding>
 
             </Label>
-            <VBox >
-                <Label  fx:id="alertText" layoutX="7.0" layoutY="88.0" onMouseClicked="#removeAlert" prefHeight="17.0" prefWidth="266.0" style="-fx-alignment: center;" textFill="RED" />
+            <VBox>
+                <Label fx:id="alertText" layoutX="7.0" layoutY="88.0" onMouseClicked="#removeAlert" prefHeight="17.0" prefWidth="266.0" style="-fx-alignment: center;" textFill="RED" />
 
                 <HBox spacing="10">
 
@@ -77,9 +77,9 @@
 
                     <TableView fx:id="enseignantTable" prefHeight="292.0" prefWidth="423.0" HBox.hgrow="ALWAYS">
                         <columns>
-                            <TableColumn  fx:id="matriculeCol" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Matricule" />
-                            <TableColumn  fx:id="nameCol" maxWidth="170.0" minWidth="170.0" prefWidth="170.0" text="Nom" />
-                            <TableColumn  fx:id="contactCol" maxWidth="180.0" prefWidth="180.0" text="Contact" />
+                            <TableColumn fx:id="matriculeCol" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Matricule" />
+                            <TableColumn fx:id="nameCol" maxWidth="170.0" minWidth="170.0" prefWidth="170.0" text="Nom" />
+                            <TableColumn fx:id="contactCol" maxWidth="180.0" prefWidth="180.0" text="Contact" />
                         </columns>
                     </TableView>
                 </HBox>
@@ -115,25 +115,25 @@
 
 
                         <Label text="Matière:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                        <ComboBox fx:id="subjectComboBox" GridPane.columnIndex="1" GridPane.rowIndex="1" >
+                        <ComboBox fx:id="subjectComboBox" GridPane.columnIndex="1" GridPane.rowIndex="1">
 
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
-                                    <String fx:value="Arabe" />
-                                    <String fx:value="Maths" />
+                                    <String fx:value="ARABE" />
+                                    <String fx:value="MATHS" />
                                     <String fx:value="SVT" />
-                                    <String fx:value="Techno" />
-                                    <String fx:value="Edu islamique" />
-                                    <String fx:value="Musique" />
-                                    <String fx:value="Arts" />
-                                    <String fx:value="Français" />
-                                    <String fx:value="Anglais" />
+                                    <String fx:value="TECHNO" />
+                                    <String fx:value="EDU ISLAMIQUE" />
+                                    <String fx:value="MUSIQUE" />
+                                    <String fx:value="ARTS" />
+                                    <String fx:value="FRANÇAIS" />
+                                    <String fx:value="ANGLAIS" />
                                 </FXCollections>
                             </items>
                         </ComboBox>
 
                         <Label text="Jour:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                        <ComboBox fx:id="dayComboBox" GridPane.columnIndex="1" GridPane.rowIndex="2" >
+                        <ComboBox fx:id="dayComboBox" GridPane.columnIndex="1" GridPane.rowIndex="2">
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
                                     <String fx:value="LUNDI" />
@@ -147,7 +147,7 @@
                         </ComboBox>
 
                         <Label text="Heure:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                        <ComboBox fx:id="hourComboBox" GridPane.columnIndex="1" GridPane.rowIndex="3" >
+                        <ComboBox fx:id="hourComboBox" GridPane.columnIndex="1" GridPane.rowIndex="3">
 
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
@@ -175,7 +175,7 @@
 
                         <HBox alignment="CENTER" spacing="10" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="5">
                             <Button fx:id="saveSessionButton" onMouseClicked="#addCours" text="ENREGISTRER" />
-                            <Button fx:id="queriesButton" text="REQUETES" onAction="#handleGoToSecondScreen" />
+                            <Button fx:id="queriesButton" onAction="#handleGoToSecondScreen" text="REQUETES" />
                         </HBox>
                         <columnConstraints>
                             <ColumnConstraints />
@@ -193,11 +193,11 @@
 
                     <TableView fx:id="courseTable" prefHeight="275.0" prefWidth="416.0" HBox.hgrow="ALWAYS">
                         <columns>
-                            <TableColumn text="Classe" fx:id="classeCol"/>
-                            <TableColumn text="Matière" fx:id="subjectCol" />
-                            <TableColumn text="Jour" fx:id="dayCol"/>
-                            <TableColumn maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Heure" fx:id="hourCol"/>
-                            <TableColumn prefWidth="124.6666259765625" text="Enseignant" fx:id="teacherCol"/>
+                            <TableColumn fx:id="classeCol" prefWidth="99.33331549167633" text="Classe" />
+                            <TableColumn fx:id="subjectCol" prefWidth="93.99999237060547" text="Matière" />
+                            <TableColumn fx:id="dayCol" prefWidth="98.00001525878906" text="Jour" />
+                            <TableColumn fx:id="hourCol" maxWidth="150.0" minWidth="100.0" prefWidth="100.0" text="Heure" />
+                            <TableColumn fx:id="teacherCol" prefWidth="124.6666259765625" text="Enseignant" />
                         </columns>
                     </TableView>
                 </HBox>

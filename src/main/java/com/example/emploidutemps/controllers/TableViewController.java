@@ -424,7 +424,11 @@ public class TableViewController implements Initializable {
                     preparedStatement.setString(4, hourComboBox.getValue().toString());
                     preparedStatement.setString(5, teacherIdSessionField.getText());
                     preparedStatement.execute();
-                    clearFields();
+                    classComboBox.setValue(null);
+                    dayComboBox.setValue(null);
+                    hourComboBox.setValue(null);
+                    subjectComboBox.setValue(null);
+                    teacherIdSessionField.setText("");
                     alertText.setText("");
                     refreshCoursTable();
                     alertText.setText("Cours ajouté X ");
