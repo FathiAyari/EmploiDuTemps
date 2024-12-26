@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<AnchorPane prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: #f0cac9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.emploidutemps.controllers.CoursController">
+    <children>
+
+        <Label layoutX="22.0" layoutY="22.0" prefHeight="27.0" prefWidth="594.0" style="-fx-font-weight: bold; -fx-font-size: 18;" text="Les séances de cours dans la semaine d'une matiére dans une classe : ">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="20.0" layoutY="65.0" prefHeight="27.0" prefWidth="62.0" text="Classe">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="297.0" layoutY="65.0" prefHeight="27.0" prefWidth="62.0" text="Matiére">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+
+
+        <ComboBox fx:id="classComboBox1" layoutX="15.0" layoutY="91.0" prefWidth="150.0" >
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="1er" />
+                    <String fx:value="2eme" />
+                    <String fx:value="3eme" />
+                    <String fx:value="4eme" />
+                    <String fx:value="5eme" />
+                    <String fx:value="6eme" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+        <TextField fx:id="tfMatiere" layoutX="297.0" layoutY="91.0" prefHeight="27.0" prefWidth="150.0" />
+        <Button fx:id="btnChercher" layoutX="588.0" layoutY="89.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="150.0" text="Chercher">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Button>
+        <TableView editable="true" fixedCellSize="4.0" layoutX="11.0" layoutY="136.0" prefHeight="292.0" prefWidth="878.0">
+            <columns>
+                <TableColumn fx:id="colId" prefWidth="82.39999675750732" text="ID" />
+                <TableColumn fx:id="colClasse" prefWidth="116.79998779296875" text="Classe" />
+                <TableColumn fx:id="colMatiere" prefWidth="127.19993591308594" text="Matiére" />
+                <TableColumn fx:id="colJour" prefWidth="108.0" text="Jour" />
+                <TableColumn fx:id="colHeure" prefWidth="126.4000244140625" text="Heure" />
+                <TableColumn fx:id="colNomEns" prefWidth="171.20013427734375" text="Nom Enseignant" />
+                <TableColumn fx:id="colContactEns" prefWidth="148.7999267578125" text="Contact Enseignant" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+        <Label layoutX="20.0" layoutY="455.0" prefHeight="27.0" prefWidth="62.0" text="ID">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="idCours" layoutX="102.0" layoutY="457.0" prefWidth="150.0"  />
+
+        <Button fx:id="btnDelete" layoutX="319.0" layoutY="455.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="150.0" text="Supprimer">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Button>
+        <Label layoutX="13.0" layoutY="498.0" prefHeight="27.0" prefWidth="381.0" style="-fx-font-weight: bold; -fx-font-size: 18;" text="Emploi du temps de la semaine par classe :">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+
+
+        <ComboBox fx:id="classComboBox2" layoutX="102.0" layoutY="563.0" prefWidth="150.0" >
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="1er" />
+                    <String fx:value="2eme" />
+                    <String fx:value="3eme" />
+                    <String fx:value="4eme" />
+                    <String fx:value="5eme" />
+                    <String fx:value="6eme" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+        <Button fx:id="btnChercher2" layoutX="319.0" layoutY="561.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="150.0" text="Chercher">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Button>
+        <Label layoutX="25.0" layoutY="562.0" prefHeight="27.0" prefWidth="62.0" text="Classe">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>

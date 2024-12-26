@@ -1,21 +1,80 @@
 package com.example.emploidutemps.models;
 
 public class Cours {
-    String id;
-    String classe;
-    String matiere;
-    String num_jour;
-    String Jour;
-    String heure;
-    String matricule_ens;
+    private int id;
+    private String classe;
+    private String matiere;
+    private String Jour;  // Keeping the original attribute name
+    private String heure;
+    private String matricule_ens;  // Keeping the original attribute name
 
-    String nom;
-    String contact;
-    String matricule;
+    // Constructor
+    public Cours(int id, String classe, String matiere, String Jour, String heure, String matricule_ens) {
+        this.id = id;
+        this.classe = classe;
+        this.matiere = matiere;
+        this.Jour = Jour;
+        this.heure = heure;
+        this.matricule_ens = matricule_ens;
+    }
 
-    public Cours(String nom, String contact, String matricule) {
-        this.nom = nom;
-        this.contact = contact;
-        this.matricule = matricule;
+    // Getter for id
+    public int getId() {
+        return id;
+    }
+
+    // Setter for id
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    // Getter for classe
+    public String getClasse() {
+        return classe;
+    }
+
+    // Setter for classe
+    public void setClasse(String classe) {
+        this.classe = classe;
+    }
+
+    // Getter for matiere
+    public String getMatiere() {
+        return matiere;
+    }
+
+    // Setter for matiere
+    public void setMatiere(String matiere) {
+        this.matiere = matiere;
+    }
+
+    // Getter for Jour
+    public String getJour() {
+        return Jour;
+    }
+
+    // Setter for Jour
+    public void setJour(String Jour) {
+        this.Jour = Jour;
+    }
+
+    // Getter for heure
+    public String getHeure() {
+        return heure;
+    }
+
+    // Setter for heure
+    public void setHeure(String heure) {
+        this.heure = heure;
+    }
+
+    // Getter for matricule_ens
+    public String getMatricule_ens() {
+        return matricule_ens;
+    }
+
+    // Setter for matricule_ens
+    public void setMatricule_ens(String matricule_ens) {
+        this.matricule_ens = matricule_ens;
     }
 }

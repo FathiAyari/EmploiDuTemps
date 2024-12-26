@@ -4,17 +4,23 @@ package com.example.emploidutemps.controllers;/*
  * and open the template in the editor.
  */
 
+import com.example.emploidutemps.App;
 import com.example.emploidutemps.helpers.DbConnect;
+import com.example.emploidutemps.models.Cours;
 import com.example.emploidutemps.models.Enseignant;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.IOException;
@@ -39,7 +45,28 @@ import java.util.logging.Logger;
  */
 public class TableViewController implements Initializable {
 
+    @FXML
+    private TableColumn<Cours, String> classeCol;
+    @FXML
+    private TableColumn<Cours, String> subjectCol;
+    @FXML
+    private TableColumn<Cours, String> teacherCol;
+    @FXML
+    private TableColumn<Cours, String> hourCol;
+    @FXML
+    private TableColumn<Cours, String> dayCol;
 
+
+    @FXML
+    private ComboBox classComboBox;
+    @FXML
+    private ComboBox subjectComboBox;
+    @FXML
+    private ComboBox dayComboBox;
+    @FXML
+    private ComboBox hourComboBox;
+    @FXML
+    private TextField teacherIdSessionField ;
     @FXML
     private TextField teacherNameField;
     @FXML
@@ -51,6 +78,8 @@ public class TableViewController implements Initializable {
     private Label alertText;
     @FXML
     private TableView<Enseignant> enseignantTable;
+    @FXML
+    private TableView<Cours> courseTable;
     @FXML
     private TableColumn<Enseignant, String> matriculeCol;
     @FXML
@@ -66,6 +95,7 @@ public class TableViewController implements Initializable {
     ResultSet resultSet = null;
 
     ObservableList<Enseignant> enseignants = FXCollections.observableArrayList();
+    ObservableList<Cours> cours = FXCollections.observableArrayList();
     private boolean check;
     private boolean foundRecord;
 
@@ -74,7 +104,7 @@ public class TableViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        loadDate();
+        loadData();
     }
 
 
@@ -114,28 +144,68 @@ public class TableViewController implements Initializable {
 
 
     }
+    private void refreshCoursTable() {
+        connection = DbConnect.getConnect();
+        cours.clear();
+
+        try {
+
+
+            query = "SELECT * FROM `tb_cours`";
+
+            preparedStatement = connection.prepareStatement(query);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                cours.add(new Cours(
+                        resultSet.getInt("id"),
+                        resultSet.getString("classe"),
+                        resultSet.getString("matiere"),
+                        resultSet.getString("jour"),
+                        resultSet.getString("heure"),
+                        resultSet.getString("matricule_ens")
+
+
+                      ));
+                courseTable.setItems(cours);
+
+
+
+
+            }
+
+
+        } catch (SQLException ex) {
+            System.out.println("error here" + ex);
+            Logger.getLogger(TableViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }
 
 
     @FXML
-    void loadDate() {
+    void loadData() {
         refreshTable();
+        refreshCoursTable();
         nameCol.setCellValueFactory(new PropertyValueFactory<>("nom"));
         matriculeCol.setCellValueFactory(new PropertyValueFactory<>("matricule"));
         contactCol.setCellValueFactory(new PropertyValueFactory<>("contact"));
+        classeCol.setCellValueFactory(new PropertyValueFactory<>("classe"));
+        subjectCol.setCellValueFactory(new PropertyValueFactory<>("matiere"));
+        dayCol.setCellValueFactory(new PropertyValueFactory<>("jour"));
+        hourCol.setCellValueFactory(new PropertyValueFactory<>("heure"));
+        teacherCol.setCellValueFactory(new PropertyValueFactory<>("matricule_ens"));
 
     }
 
     @FXML
     void clearFields() {
-teacherNameField.setText("");
-teacherIdField.setText("");
-teacherContactField.setText("");
+        teacherNameField.setText("");
+        teacherIdField.setText("");
+        teacherContactField.setText("");
     }
 
-    @FXML
-    void clearFieldsMeet() {
 
-    }
 
    @FXML
     void addEnsen() throws IOException {
@@ -307,5 +377,80 @@ teacherContactField.setText("");
         }
 
 
+    }
+    public void addCours(){
+        String alertMessage = "";
+        if (classComboBox.getValue()==null) {
+            alertMessage = "Classe obligatoire";
+        } else if (subjectComboBox.getValue()==null) {
+            alertMessage = "Matiere est obligatoire";
+        } else if (dayComboBox.getValue()==null) {
+            alertMessage = "Le jour est obligatoire";
+
+        }
+        else if (hourComboBox.getValue()==null) {
+            alertMessage = "L'heure est obligatoire";
+
+        }
+        else if (teacherIdSessionField.getText().isEmpty()) {
+            alertMessage = "Matricule est obligatoire";
+
+        }
+        if (!alertMessage.isEmpty()) {
+            alertMessage += " X ";
+            alertText.setText(alertMessage);
+
+
+        }
+        else {
+
+            try {
+                query = "SELECT * FROM `tb_enseignant` WHERE `matricule`=?";
+                connection = DbConnect.getConnect();
+
+
+                preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, teacherIdSessionField.getText());
+                resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+
+                    cours.clear();
+                    query = "INSERT INTO `tb_cours`( `classe`, `matiere`, `jour`,`heure`,`matricule_ens`) VALUES (?,?,?,?,?)";
+
+                    preparedStatement = connection.prepareStatement(query);
+                    preparedStatement.setString(1, classComboBox.getValue().toString());
+                    preparedStatement.setString(2, subjectComboBox.getValue().toString());
+                    preparedStatement.setString(3, dayComboBox.getValue().toString());
+                    preparedStatement.setString(4, hourComboBox.getValue().toString());
+                    preparedStatement.setString(5, teacherIdSessionField.getText());
+                    preparedStatement.execute();
+                    clearFields();
+                    alertText.setText("");
+                    refreshCoursTable();
+                    alertText.setText("Cours ajouté X ");
+
+                }else{
+
+                    alertText.setText("Enseignant introuvable X");
+                }
+            } catch (SQLException ex) {
+                alertText.setText(ex.getMessage());
+                refreshTable();
+            }
+        }
+    }
+
+    @FXML
+    private void handleGoToSecondScreen(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("second_screen.fxml"));
+        Scene newWindowScene = new  Scene(fxmlLoader.load(),900, 600);
+        // Create a new stage for the new window
+        Stage newStage = new Stage();
+        newStage.setResizable(false);
+        newStage.setTitle("Emplois du temps UVT");
+        newStage.setScene(newWindowScene);
+
+        // Show the new window
+        newStage.show();
     }
 }
